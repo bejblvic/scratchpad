@@ -1,53 +1,38 @@
 var orbs = [];
 var myorb;
+var numorbs = 4;
+sw=400;
+sh=200;
 function setup() {
-  createCanvas(1024,1024);
-//  for (var ii = 0; ii < orbs.length; ii++){
-//    orbs[ii] = new Orb(random(0,width), random(0,height));
-//  }
-  myorb = new Orb(random(0,width), random(0,height));
+  createCanvas(sw,sh);
+  for (var ii = 0; ii < numorbs; ii++){
+    orbs[ii] = new Orb(random(0,sw), random(0,sh));
+  }
+//  myorb = new Orb(random(0,width), random(0,height));
 }
 
 function draw() {
   background(50);
+  colorMode(HSB);
   loadPixels();
-  
+    for(x=0; x<sw; x++) {
+        for(y=0; y<sh; y++) {
+            var sum = 0;
+            for(ii=0; ii<numorbs; ii++) {
+                var xdif = x-orbs[ii].x;
+                var ydif = y-orbs[ii].y;
+                var d = sqrt((xdif*xdif) + (ydif*ydif));
+                sum += 10 * orbs[ii].r/d;
+            }
+            set(x, y, color(sum, 255, 255));
+        }
+    }  
   updatePixels();
   
-  myorb.update();
-  myorb.show();
-//  for (ii=0; ii<orbs.length; ii++) {
-//    orbs[ii].update();
+  //myorb.update();
+  //myorb.show();
+  for (ii=0; ii<numorbs; ii++) {
+    orbs[ii].update();
 //    orbs[ii].show();
-//  }
+  }
 }
-
-
-class Orb {
-  constructor(xorig,yorig) {
-    this.r = random(50,200);
-    this.x = xorig;
-    this.y = yorig;
-    this.velx = random (2,5);
-    this.vely = random (2,5);
-  }
-  
-  update() {
-    this.x += this.velx;
-    this.y += this.vely;
-    if (this.x > width || this.x < 1) {
-      this.velx *= -1;
-    }
-    if (this.y > height || this.y < 1) {
-      this.vely *= -1;
-    }
-  }
- 
-  show() {
-    stroke(200);
-    strokeWeight(4);
-    ellipse(this.x, this.y, this.r*2, this.r*2);
-  }
-  
-}
-  
