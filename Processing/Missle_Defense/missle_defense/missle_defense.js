@@ -1,7 +1,9 @@
 var winw = 800;
 var winh = winw*0.8;
 var NumCities = 4;
+var NumMissles = 3;
 var cities = [];
+var missles = [];
 
 function setup() {
   createCanvas(winw,winh);
@@ -10,6 +12,9 @@ function setup() {
   for (var ii = 0; ii < NumCities; ii++) {
     cities[ii] = new City((ii+1)*city_space,winh);
   }
+  for (var ii = 0; ii < NumMissles; ii++) {
+    missles[ii] = new Missle(random(0.1*winw,0.9*winw),1);
+  }
 }
 
 function draw() {
@@ -17,8 +22,33 @@ function draw() {
   for (var ii = 0; ii<NumCities; ii++) {
     cities[ii].show();
   }
+  for (var ii = 0; ii<NumMissles; ii++) {
+    missles[ii].update();
+    missles[ii].show();
+  }
 }
 
+
+function Missle(xpos, ypos) {
+  this.xorig = xpos;
+  this.yorig = ypos;
+  this.x = xpos;
+  this.y = ypos;
+  this.velx = random(-2,2);  
+  this.vely = random(0.1,2);  
+  
+  this.update = function() {
+    this.x += this.velx;
+    this.y += this.vely;
+  }
+  
+  this.show = function() {
+    strokeWeight(4);
+    stroke(239, 67, 9);
+    line(this.xorig,this.yorig,this.x,this.y);
+  }
+  
+};
 
 function City(xpos, ypos) {
   this.x = xpos;
