@@ -31,10 +31,13 @@ function City(xpos, ypos) {
   
   this.show = function() {
    strokeWeight(1);
-   fill(0);
+   stroke(0);
+   fill(255);
    rect(this.x-20, this.y, 20, -80);
-   rect(this.x+5, this.y, 5, -100);
+   rect(this.x+5, this.y, 10, -100);
+   rect(this.x-35, this.y, 50, -40);
    rect(this.x, this.y, 20, -30);
+   rect(this.x-15, this.y, 5, -20);
   }
   
 };
