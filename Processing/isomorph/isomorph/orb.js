@@ -1,11 +1,11 @@
 
 function Orb(xorig,yorig) {
 
-    this.r = random(30,400);
+    this.r = random(120,300);
     this.x = xorig;
     this.y = yorig;
-    this.velx = random (2,5);
-    this.vely = random (2,5);
+    this.velx = random (-4,4);
+    this.vely = random (-4,4);
   
     this.update = function() {
     this.x += this.velx;

@@ -21,11 +21,10 @@ function draw() {
             for(ii=0; ii<numorbs; ii++) {
                 var xdif = x-orbs[ii].x;
                 var ydif = y-orbs[ii].y;
-//                var d = sqrt((xdif*xdif) + (ydif*ydif));
-                var d = (xdif*xdif) + (ydif*ydif);
-                sum += 300* orbs[ii].r/d;
+                var d = sqrt((xdif*xdif) + (ydif*ydif));
+                sum += 14* orbs[ii].r/d;
             }
-            set(x, y, color(sum, 255, 155));
+            set(x, y, color(sum, 255, 255));
         }
     }  
   updatePixels();
