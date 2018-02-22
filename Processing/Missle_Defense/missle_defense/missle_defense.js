@@ -4,6 +4,7 @@ var NumCities = 4;
 var NumMissles = 3;
 var cities = [];
 var missles = [];
+var aas = [];
 
 function setup() {
   createCanvas(winw,winh);
@@ -32,5 +33,8 @@ function draw() {
 }
 
 function mouseClicked() {
-  ellipse(mouseX,mouseY,20,20);
+   strokeWeight(1);
+   stroke(0);
+   fill(255);
+   ellipse(mouseX,mouseY,20,20);
 }
