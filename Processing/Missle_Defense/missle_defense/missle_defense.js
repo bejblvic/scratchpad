@@ -23,6 +23,9 @@ function draw() {
     cities[ii].show();
   }
   for (var ii = 0; ii<NumMissles; ii++) {
+    if (missles[ii].state == 0) {
+      missles[ii] = new Missle(random(0.1*winw,0.9*winw),1);
+    }
     missles[ii].update();
     missles[ii].show();
   }
@@ -36,16 +39,22 @@ function Missle(xpos, ypos) {
   this.y = ypos;
   this.velx = random(-2,2);  
   this.vely = random(0.1,2);  
+  this.state = 1; //0=inactive, 1=active, 2=exploding
   
   this.update = function() {
     this.x += this.velx;
     this.y += this.vely;
+    if (this.x > winw || this.x < 1 || this.y > winh) {
+      this.state = 0;
+    }
   }
   
   this.show = function() {
-    strokeWeight(4);
-    stroke(239, 67, 9);
-    line(this.xorig,this.yorig,this.x,this.y);
+    if (this.state ==1){
+      strokeWeight(4);
+      stroke((this.y/winh)*255+100, 80, 90);
+      line(this.xorig,this.yorig,this.x,this.y);
+    }
   }
   
 };
