@@ -4,7 +4,7 @@ function Missle(xpos, ypos) {
   this.x = xpos;
   this.y = ypos;
   this.velx = random(-2,2);  
-  this.vely = random(0.1,2);  
+  this.vely = random(0.1,3);  
   this.state = 1; //0=inactive, 1=active, 2=exploding
   
   this.update = function() {
