@@ -24,10 +24,12 @@
 #NI = num inputs
 #NO = num outputs
 #NH = num hidden
-function [retval] = make_network (NI, NO, NH)
-  in_l = zeros(NI,1);
-  out_l = zeros(NO,1);
-  hid_l = zeros(NH,1); 
-  in_l, hid_l, out_l
-  retval = 0;
+function [INet] = make_network (NI, NH, NO)
+  INet.in_l = zeros(NI,1); #inputs
+  INet.out_l = zeros(NO,1);
+  INet.hid_l = rand(NH,1); 
+  INet.hid_b = rand(NH,1); #biases
+  INet.out_b = rand(NO,1); #biases
+  
+  
 endfunction

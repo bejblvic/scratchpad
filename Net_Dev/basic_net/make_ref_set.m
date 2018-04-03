@@ -23,7 +23,8 @@
 ## Created: 2018-04-02
 #num_el = num items
 function [retval] = make_ref_set (num_el)
-  retval = zeros(3,num_el);
+  retval = zeros(4,num_el);
   retval(1:2,:) = rand(2,num_el);
-  retval(3,:) = (retval(1,:) + retval(2,:))  >1;
+  retval(3,:) = (retval(1,:) + retval(2,:))  > 1;
+  retval(4,:) = (retval(1,:) + retval(2,:)) <= 1;
 endfunction
