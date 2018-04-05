@@ -29,6 +29,7 @@ function [retval] = show_network (INet)
   num_in = length(INet.in_l);
   innodes=[(ones(1,num_in));((1:1:num_in)*(10/(num_in+1)))];
   scatter(innodes(1,:),innodes(2,:),'marker','o','markerfacecolor','blue','linewidth',15), hold on;
+  text(innodes(1,1),innodes(2,1),mat2str(INet.in_l(1)),'fontweight','bold');
   #Hidden Nodes
   num_hid = length(INet.hid_l);
   hidnodes=[(4*ones(1,num_hid));((1:1:num_hid)*(10/(num_hid+1)))];
