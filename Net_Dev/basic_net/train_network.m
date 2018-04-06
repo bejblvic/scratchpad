@@ -1,4 +1,4 @@
-## Copyright (C) 2018 Ob-Admin
+## Copyright (C) 2018 nxa08755
 ## 
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU General Public License as published by
@@ -14,22 +14,25 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*- 
-## @deftypefn {} {@var{retval} =} make_network (@var{input1}, @var{input2})
+## @deftypefn {} {@var{retval} =} train_network (@var{input1}, @var{input2})
 ##
 ## @seealso{}
 ## @end deftypefn
 
-## Author: Ob-Admin <Ob-Admin@OBSIDIAN>
-## Created: 2018-04-02
-#NI = num inputs
-#NO = num outputs
-#NH = num hidden
-function [INet] = make_network (NI, NH, NO)
-  INet.in_l = zeros(NI,1); #inputs
-  INet.out_l = zeros(NO,1);
-  INet.hid_l = zeros(NH,1); 
-#create In->Hidden weights
-  INet.in2hid_w = rand(NI+1,NH); #number of NI and 1 bias for each hidden
-  INet.hid2out_w = rand(NH+1,NO); #number of NH and 1 bias for each output  
-  
+## Author: nxa08755 <nxa08755@NXL97262>
+## Created: 2018-04-06
+
+function [retval] = train_network (TNet, RefSet)
+  err(1) = 0;
+  err(2) = 0;
+  for ii=1:3
+    TNet = make_guess(TNet,RefSet(1:2,ii));
+    err(1) = TNet.out_l(1) - RefSet(3,ii);
+    err(2) = TNet.out_l(2) - RefSet(4,ii);
+    disp(RefSet(3:4,ii));
+    disp(err);
+    show_network(TNet);
+    pause();
+  end
+  retval = TNet;
 endfunction
