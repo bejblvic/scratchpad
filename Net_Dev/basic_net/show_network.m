@@ -27,17 +27,28 @@ function [retval] = show_network (INet)
   axis([0 10 0 10]);
   #Input Nodes
   num_in = length(INet.in_l);
-  innodes=[(ones(1,num_in));((1:1:num_in)*(10/(num_in+1)))];
+  vert_scl = 10/(num_in+1);
+  innodes=[(ones(1,num_in));((1:1:num_in)*(vert_scl))];
   scatter(innodes(1,:),innodes(2,:),'marker','o','markerfacecolor','blue','linewidth',15), hold on;
-  text(innodes(1,1),innodes(2,1),mat2str(INet.in_l(1)),'fontweight','bold');
+  for ii=1:num_in
+    text(innodes(1,ii),innodes(2,ii)+0.2*vert_scl,mat2str(INet.in_l(ii),3),'fontweight','bold'),hold on;
+  end
   #Hidden Nodes
   num_hid = length(INet.hid_l);
-  hidnodes=[(4*ones(1,num_hid));((1:1:num_hid)*(10/(num_hid+1)))];
+  vert_scl = 10/(num_hid+1);
+  hidnodes=[(4*ones(1,num_hid));((1:1:num_hid)*(vert_scl))];
   scatter(hidnodes(1,:),hidnodes(2,:),'marker','o','markerfacecolor','blue','linewidth',15), hold on;
+  for ii=1:num_hid
+    text(hidnodes(1,ii),hidnodes(2,ii)+0.2*vert_scl,mat2str(INet.hid_l(ii),3),'fontweight','bold'),hold on;
+  end
   #Output Nodes
   num_out = length(INet.out_l);
-  outnodes=[(7*ones(1,num_out));((1:1:num_out)*(10/(num_out+1)))];
+  vert_scl = 10/(num_out+1);
+  outnodes=[(7*ones(1,num_out));((1:1:num_out)*(vert_scl))];
   scatter(outnodes(1,:),outnodes(2,:),'marker','o','markerfacecolor','blue','linewidth',15), hold on; 
+  for ii=1:num_out
+    text(outnodes(1,ii),outnodes(2,ii)+0.2*vert_scl,mat2str(INet.out_l(ii),3),'fontweight','bold'),hold on;
+  end
  axis([0 10 0 10]);
   #draw lines
   line([1,4],[innodes(2,1),hidnodes(2,1)]);
