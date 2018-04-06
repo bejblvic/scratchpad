@@ -49,10 +49,21 @@ function [retval] = show_network (INet)
   for ii=1:num_out
     text(outnodes(1,ii),outnodes(2,ii)+0.2*vert_scl,mat2str(INet.out_l(ii),3),'fontweight','bold'),hold on;
   end
- axis([0 10 0 10]);
+  axis([0 10 0 10]);
+  
   #draw lines
-  line([1,4],[innodes(2,1),hidnodes(2,1)]);
- 
+  for ii=1:num_in
+    for jj=1:num_hid
+       line([innodes(1,ii),hidnodes(1,jj)],[innodes(2,ii),hidnodes(2,jj)]);
+       text(mean([innodes(1,ii),hidnodes(1,jj)]),mean([innodes(2,ii),hidnodes(2,jj)]),mat2str(INet.in2hid_w(ii,jj),3),'fontweight','bold'),hold on;
+    end
+  end
+  for ii=1:num_hid
+    for jj=1:num_out
+       line([hidnodes(1,ii),outnodes(1,jj)],[hidnodes(2,ii),outnodes(2,jj)]);
+       text(mean([hidnodes(1,ii),outnodes(1,jj)]),mean([hidnodes(2,ii),outnodes(2,jj)]),mat2str(INet.hid2out_w(ii,jj),3),'fontweight','bold'),hold on;
+    end
+  end
   hold off
   retval=0;
 endfunction
