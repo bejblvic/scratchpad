@@ -26,11 +26,11 @@ function [GNet] = make_guess (GNet,input)
   GNet.in_l(1) = input(1);
   GNet.in_l(2) = input(2);
   
-  GNet.hid_l(1) = sign(input(1)*GNet.in2hid_w(1,1) + input(2)*GNet.in2hid_w(2,1) + GNet.in2hid_w(3,1));
-  GNet.hid_l(2) = sign(input(1)*GNet.in2hid_w(2,1) + input(2)*GNet.in2hid_w(2,2) + GNet.in2hid_w(2,3));
-  GNet.hid_l(3) = sign(input(1)*GNet.in2hid_w(3,1) + input(2)*GNet.in2hid_w(3,2) + GNet.in2hid_w(3,3));
+  GNet.hid_l(1) = activate(input(1)*GNet.in2hid_w(1,1) + input(2)*GNet.in2hid_w(2,1) + GNet.in2hid_w(3,1),3);
+  GNet.hid_l(2) = activate(input(1)*GNet.in2hid_w(2,1) + input(2)*GNet.in2hid_w(2,2) + GNet.in2hid_w(2,3),3);
+  GNet.hid_l(3) = activate(input(1)*GNet.in2hid_w(3,1) + input(2)*GNet.in2hid_w(3,2) + GNet.in2hid_w(3,3),3);
   
-  GNet.out_l(1) = sign(GNet.hid_l(1)*GNet.hid2out_w(1,1) + GNet.hid_l(2)*GNet.hid2out_w(2,1) + GNet.hid_l(3)*GNet.hid2out_w(3,1) + GNet.hid2out_w(4,1));
-  GNet.out_l(2) = sign(GNet.hid_l(1)*GNet.hid2out_w(1,2) + GNet.hid_l(2)*GNet.hid2out_w(2,2) + GNet.hid_l(3)*GNet.hid2out_w(3,2) + GNet.hid2out_w(4,2));
+  GNet.out_l(1) = activate(GNet.hid_l(1)*GNet.hid2out_w(1,1) + GNet.hid_l(2)*GNet.hid2out_w(2,1) + GNet.hid_l(3)*GNet.hid2out_w(3,1) + GNet.hid2out_w(4,1),4);
+  GNet.out_l(2) = activate(GNet.hid_l(1)*GNet.hid2out_w(1,2) + GNet.hid_l(2)*GNet.hid2out_w(2,2) + GNet.hid_l(3)*GNet.hid2out_w(3,2) + GNet.hid2out_w(4,2),4);
 
 endfunction
