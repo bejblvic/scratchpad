@@ -24,15 +24,6 @@
 
 function [LNet] = learn (LNet, err)
   LR=0.05;
-%  GNet.in_l(1) = input(1);
-%  GNet.in_l(2) = input(2);
-%  
-%  GNet.hid_l(1) = activate(input(1)*GNet.in2hid_w(1,1) + input(2)*GNet.in2hid_w(2,1) + GNet.in2hid_w(3,1),3);
-%  GNet.hid_l(2) = activate(input(1)*GNet.in2hid_w(2,1) + input(2)*GNet.in2hid_w(2,2) + GNet.in2hid_w(2,3),3);
-%  GNet.hid_l(3) = activate(input(1)*GNet.in2hid_w(3,1) + input(2)*GNet.in2hid_w(3,2) + GNet.in2hid_w(3,3),3);
-%  
-%  GNet.out_l(1) = activate(GNet.hid_l(1)*GNet.hid2out_w(1,1) + GNet.hid_l(2)*GNet.hid2out_w(2,1) + GNet.hid_l(3)*GNet.hid2out_w(3,1) + GNet.hid2out_w(4,1),4);
-%  GNet.out_l(2) = activate(GNet.hid_l(1)*GNet.hid2out_w(1,2) + GNet.hid_l(2)*GNet.hid2out_w(2,2) + GNet.hid_l(3)*GNet.hid2out_w(3,2) + GNet.hid2out_w(4,2),4);
   %form of activate
   %                 2
   %_______________________________________ 
@@ -44,20 +35,42 @@ function [LNet] = learn (LNet, err)
   %           = old_weight + LR * d/dow(activate)
   %
   %   d             (sf)*(a*w1+b*w2+c*w3+d)
-  %  ---  =  w1 * e^
-  %  dw1
+  %  ---  =   a * e^
+  %  da
   %
   %   d         (sf)*(a*w1+b*w2+c*w3+d)
   %  ---  =   e^
   %  dd
   %
   %
-  err2=err.^2;
-  bias=LNet.hid2out(4,1);
   numin=4;
-  %new_weight = err*derr/dweight
-  LNet.hid2out_w(1,1) += LR*err(1)*LNet.hid_l(1)*e^((4/numin)*(LNet.hid_l(1)*(ws)+bias));
-  LNet.hid2out_w(2,1) += LR*err(1)*LNet.hid_l(2)*e^((4/numin)*(LNet.hid_l(2)*(ws)+bias));
-  LNet.hid2out_w(3,1) += LR*err(1)*LNet.hid_l(3)*e^((4/numin)*(LNet.hid_l(3)*(ws)+bias));
-  LNet.hid2out_w(1,1) += LR*err(1)*LNet.hid_l(1)*e^((4/numin)*(LNet.hid_l(1)*(ws)+bias));
+  err2=err.^2;
+  %Out 1
+  sf=4/numin;
+  a = LNet.hid_l(1);
+  b = LNet.hid_l(2);
+  c = LNet.hid_l(3);
+  w1=LNet.hid2out_w(1,1);
+  w2=LNet.hid2out_w(2,1);
+  w3=LNet.hid2out_w(3,1);
+  bias=LNet.hid2out_w(4,1);
+  dd=e^(sf*(a*w1+b*w2+c*w3+bias));
+  LNet.hid2out_w(1,1) += LR*err(1)*a*dd;
+  LNet.hid2out_w(2,1) += LR*err(1)*b*dd;
+  LNet.hid2out_w(3,1) += LR*err(1)*c*dd;
+  LNet.hid2out_w(4,1) += LR*err(1)*dd;
+  %Out 2
+  sf=4/numin;
+  a = LNet.hid_l(1);
+  b = LNet.hid_l(2);
+  c = LNet.hid_l(3);
+  w1=LNet.hid2out_w(1,2);
+  w2=LNet.hid2out_w(2,2);
+  w3=LNet.hid2out_w(3,2);
+  bias=LNet.hid2out_w(4,2);
+  dd=e^(sf*(a*w1+b*w2+c*w3+bias));
+  LNet.hid2out_w(1,2) += LR*err(2)*a*dd;
+  LNet.hid2out_w(2,2) += LR*err(2)*b*dd;
+  LNet.hid2out_w(3,2) += LR*err(2)*c*dd;
+  LNet.hid2out_w(4,2) += LR*err(2)*dd;
 endfunction

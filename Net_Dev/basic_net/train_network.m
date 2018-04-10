@@ -25,14 +25,14 @@
 function [retval] = train_network (TNet, RefSet)
   err(1) = 0;
   err(2) = 0;
-  for ii=1:3
+  for ii=1:13
 ##Test
     TNet = make_guess(TNet,RefSet(1:2,ii));
     err(1) = TNet.out_l(1) - RefSet(3,ii);
     err(2) = TNet.out_l(2) - RefSet(4,ii);
-    disp(err);
-    show_network(TNet);
-    pause();
+    disp(sum(err.^2));
+    %show_network(TNet);
+    %pause();
 ##Learn
     TNet = learn(TNet,err);
     show_network(TNet);
