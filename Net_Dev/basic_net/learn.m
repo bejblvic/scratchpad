@@ -23,19 +23,27 @@
 ## Created: 2018-04-09
 
 function [LNet] = learn (LNet, err)
-  LR=0.05;
+  LR=0.06;
   numin=4;
   err2=err.^2;
   %%Simple error correction
   %get hidden node error
-  hiderr(1) = err(1)*(LNet_hid2out_w(1,1)/(sum(LNet_hid2out_w(1:3,1)))) +
-              err(2)*(LNet_hid2out_w(1,2)/(sum(LNet_hid2out_w(1:3,2))));
-  hiderr(2) = err(1)*(LNet_hid2out_w(2,1)/(sum(LNet_hid2out_w(1:3,1)))) +
-              err(2)*(LNet_hid2out_w(2,2)/(sum(LNet_hid2out_w(1:3,2))));
-  hiderr(3) = err(1)*(LNet_hid2out_w(3,1)/(sum(LNet_hid2out_w(1:3,1)))) +
-              err(2)*(LNet_hid2out_w(3,2)/(sum(LNet_hid2out_w(1:3,2))));
-  
+  hiderr(1) = err(1)*(LNet.hid2out_w(1,1)/(sum(LNet.hid2out_w(1:3,1)))) +...
+              err(2)*(LNet.hid2out_w(1,2)/(sum(LNet.hid2out_w(1:3,2))));
+  hiderr(2) = err(1)*(LNet.hid2out_w(2,1)/(sum(LNet.hid2out_w(1:3,1)))) +...
+              err(2)*(LNet.hid2out_w(2,2)/(sum(LNet.hid2out_w(1:3,2))));
+  hiderr(3) = err(1)*(LNet.hid2out_w(3,1)/(sum(LNet.hid2out_w(1:3,1)))) +...
+              err(2)*(LNet.hid2out_w(3,2)/(sum(LNet.hid2out_w(1:3,2))));
   %new_weight = old_weight - LR*err*d/dw
+  LNet.in2hid_w(1,1) -= LR*hiderr(1)*LNet.in_l(1);
+  LNet.in2hid_w(2,1) -= LR*hiderr(1)*LNet.in_l(2);
+  
+  LNet.in2hid_w(1,2) -= LR*hiderr(2)*LNet.in_l(1);
+  LNet.in2hid_w(2,2) -= LR*hiderr(2)*LNet.in_l(2);
+  
+  LNet.in2hid_w(1,3) -= LR*hiderr(3)*LNet.in_l(1);
+  LNet.in2hid_w(2,3) -= LR*hiderr(3)*LNet.in_l(2);
+  
   LNet.hid2out_w(1,1) -= LR*err(1)*LNet.hid_l(1);
   LNet.hid2out_w(2,1) -= LR*err(1)*LNet.hid_l(2);
   LNet.hid2out_w(3,1) -= LR*err(1)*LNet.hid_l(3);

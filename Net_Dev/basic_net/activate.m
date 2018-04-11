@@ -23,5 +23,6 @@
 ## Created: 2018-04-09
 
 function [retval] = activate (xin,numin)
-  retval = 2./(1+e.^(-(4/numin).*xin))-1;
+%  retval = 2./(1+e.^(-(4/numin).*xin))-1;
+  retval = sign(xin);
 endfunction
