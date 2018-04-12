@@ -37,12 +37,15 @@ function [LNet] = learn (LNet, err)
   %new_weight = old_weight - LR*err*d/dw
   LNet.in2hid_w(1,1) -= LR*hiderr(1)*LNet.in_l(1);
   LNet.in2hid_w(2,1) -= LR*hiderr(1)*LNet.in_l(2);
+  LNet.in2hid_w(3,1) -= LR*hiderr(1);
   
   LNet.in2hid_w(1,2) -= LR*hiderr(2)*LNet.in_l(1);
   LNet.in2hid_w(2,2) -= LR*hiderr(2)*LNet.in_l(2);
+  LNet.in2hid_w(3,2) -= LR*hiderr(2);
   
   LNet.in2hid_w(1,3) -= LR*hiderr(3)*LNet.in_l(1);
   LNet.in2hid_w(2,3) -= LR*hiderr(3)*LNet.in_l(2);
+  LNet.in2hid_w(3,3) -= LR*hiderr(3);
   
   LNet.hid2out_w(1,1) -= LR*err(1)*LNet.hid_l(1);
   LNet.hid2out_w(2,1) -= LR*err(1)*LNet.hid_l(2);

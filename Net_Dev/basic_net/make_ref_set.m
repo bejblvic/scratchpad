@@ -25,7 +25,6 @@
 function [retval] = make_ref_set (num_el)
   retval = zeros(4,num_el);
   retval(1:2,:) = rand(2,num_el);
-  %retval(3,:) = 2.*((retval(1,:) + retval(2,:)) <= 1)-1;
-  retval(3,:) = 2.*((retval(1,:) + retval(2,:)) > 1)-1;
-  retval(4,:) = 2.*((retval(1,:) + retval(2,:)) > 1)-1;
+  retval(3,:) = 2.*(retval(1,:) > retval(2,:))-1;
+  retval(4,:) = 2.*(retval(1,:) > retval(2,:))-1;
 endfunction

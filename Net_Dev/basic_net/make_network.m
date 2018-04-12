@@ -29,7 +29,7 @@ function [INet] = make_network (NI, NH, NO)
   INet.out_l = zeros(NO,1);
   INet.hid_l = zeros(NH,1); 
 #create In->Hidden weights
-  INet.in2hid_w = rand(NI+1,NH); #number of NI and 1 bias for each hidden
-  INet.hid2out_w = rand(NH+1,NO); #number of NH and 1 bias for each output  
+  INet.in2hid_w = 2.*rand(NI+1,NH)-1; #number of NI and 1 bias for each hidden
+  INet.hid2out_w = 2.*rand(NH+1,NO)-1; #number of NH and 1 bias for each output  
   
 endfunction
