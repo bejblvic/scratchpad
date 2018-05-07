@@ -22,7 +22,7 @@
 ## Author: nxa08755 <nxa08755@NXL97262>
 ## Created: 2018-04-09
 
-function [retval] = activate (xin,numin)
-%  retval = 2./(1+e.^(-(4/numin).*xin))-1;
-  retval = sign(xin);
+function [retval] = activate (xin)
+  retval = 1./(1+e.^(xin));
+%  retval = sign(xin);
 endfunction

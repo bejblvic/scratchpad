@@ -23,6 +23,9 @@
 ## Created: 2018-04-02
 #num_el = num items
 function [inputs,outputs] = make_ref_set (num_el)
-  inputs = rand(num_el,2);
-  outputs = inputs(:,1) > inputs(:,2);
+  inputs = rand(2,num_el);
+  outputs(1,:) = inputs(1,:) > inputs(2,:);
+  outputs(2,:) = inputs(1,:) <= inputs(2,:);
+  #inputs = inputs';
+  #outputs = outputs';
 endfunction
