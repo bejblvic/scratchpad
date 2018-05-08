@@ -14,7 +14,7 @@
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*- 
-## @deftypefn {} {@var{retval} =} make_guess (@var{input1}, @var{input2})
+## @deftypefn {} {@var{retval} =} train_network (@var{input1}, @var{input2})
 ##
 ## @seealso{}
 ## @end deftypefn
@@ -22,10 +22,13 @@
 ## Author: nxa08755 <nxa08755@NXL97262>
 ## Created: 2018-04-06
 
-function [guess] = make_guess (GNet,input)
-  GNet.in_l = input;
-  
-  GNet.hid_l = GNet.wh*input + GNet.bh;
-  GNet.out_l = GNet.wo*GNet.hid_l + GNet.bo;
-  guess = GNet.out_l;
+function [err] = test_network (TNet, RefSet)
+  err = 0;
+  [num_in,num_el]=size(RefSet.in);
+  [num_out,num_el]=size(RefSet.out);
+  for ii=1:num_el
+##Test
+    guess_out = make_guess(TNet,RefSet.in(:,ii));
+    err += sum((guess_out - RefSet.out(:,ii)).^2);
+  end
 endfunction
