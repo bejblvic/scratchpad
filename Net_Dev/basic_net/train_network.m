@@ -23,29 +23,12 @@
 ## Created: 2018-04-06
 
 function [retval] = train_network (TNet, RefSet)
-  err(1) = 0;
-  err(2) = 0;
-  for ii=1:100
-##Test
-    TNet = make_guess(TNet,RefSet(1:2,ii));
-    err(1) = TNet.out_l(1) - RefSet(3,ii);
-    err(2) = TNet.out_l(2) - RefSet(4,ii);
-    disp(sum(err.^2));
-##Learn
-    TNet = learn(TNet,err);
+#make guess
+  for ii=1:2
+    guess_out = make_guess(TNet,RefSet.in(:,ii));
+    errout = guess_out - RefSet.out(:,ii)
+    errhid = TNet.wo'*errout
   end
-  for ii=101:104
-##Test
-    TNet = make_guess(TNet,RefSet(1:2,ii));
-    err(1) = TNet.out_l(1) - RefSet(3,ii);
-    err(2) = TNet.out_l(2) - RefSet(4,ii);
-    disp(sum(err.^2));
-    show_network(TNet);
-    pause();
-##Learn
-    TNet = learn(TNet,err);
-    %show_network(TNet);
-    %pause();
-  end
+  
   retval = TNet;
 endfunction
