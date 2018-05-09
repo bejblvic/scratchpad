@@ -15,11 +15,12 @@ INet = make_network(NI,NH,NO)
 max_err = (NO)*num_el;
 #calculate expected random guess error
 exp_err = (NO)*(num_el/2);
-for ii=1:1
+for ii=1:3
   curr_err = test_network(INet,TestSet);
   disp('adjusted error = ');
   disp(curr_err/max_err);
   INet = train_network(INet,TrSet);
+  pause
 end
   #show_network(INet);
 

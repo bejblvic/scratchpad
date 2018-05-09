@@ -22,7 +22,7 @@
 ## Author: nxa08755 <nxa08755@NXL97262>
 ## Created: 2018-04-06
 
-function [guess] = make_guess (GNet,input)
+function [guess,GNet] = make_guess (GNet,input)
   GNet.in_l = input;
   
   GNet.hid_l = GNet.wh*input + GNet.bh;

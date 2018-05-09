@@ -27,7 +27,7 @@ function [err] = test_network (TNet, RefSet)
   [num_in,num_el]=size(RefSet.in);
   [num_out,num_el]=size(RefSet.out);
   for ii=1:num_el
-    guess_out = make_guess(TNet,RefSet.in(:,ii));
+    [guess_out,TNet] = make_guess(TNet,RefSet.in(:,ii));
     err += sum((guess_out - RefSet.out(:,ii)).^2);
   end
 endfunction
