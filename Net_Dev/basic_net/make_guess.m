@@ -25,7 +25,7 @@
 function [guess,GNet] = make_guess (GNet,input)
   GNet.in_l = input;
   
-  GNet.hid_l = GNet.wh*input + GNet.bh;
-  GNet.out_l = GNet.wo*GNet.hid_l + GNet.bo;
+  GNet.hid_l = activate(GNet.wh*input + GNet.bh);
+  GNet.out_l = activate(GNet.wo*GNet.hid_l + GNet.bo);
   guess = GNet.out_l;
 endfunction
