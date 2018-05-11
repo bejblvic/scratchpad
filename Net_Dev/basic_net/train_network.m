@@ -24,7 +24,7 @@
 
 function [retval] = train_network (TNet, RefSet, LR)
 #make guess
-  for ii=1:1000
+  for ii=1:1400
     [guess_out,TNet] = make_guess(TNet,RefSet.in(:,ii));
     errout = guess_out - RefSet.out(:,ii);
     errhid = TNet.wo'*errout;

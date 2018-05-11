@@ -25,7 +25,7 @@
 function [inputs,outputs] = make_ref_set (num_el)
   inputs = rand(2,num_el);
   outputs(1,:) = inputs(1,:) > inputs(2,:);
-  outputs(2,:) = inputs(1,:) <= inputs(2,:);
+  outputs(2,:) = inputs(1,:) > inputs(2,:);
   #inputs = inputs';
   #outputs = outputs';
 endfunction

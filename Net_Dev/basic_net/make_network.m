@@ -3,7 +3,7 @@
 #NO = num outputs
 #NH = num hidden
 function [INet] = make_network (NI, NH, NO)
-  IS = 0.2; #inception strength
+  IS = 0.7; #inception strength
   INet.in_l = zeros(NI,1); #inputs
   INet.hid_l = zeros(NH,1); 
   INet.out_l = zeros(NO,1);
