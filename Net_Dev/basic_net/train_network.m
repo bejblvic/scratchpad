@@ -22,26 +22,29 @@
 ## Author: nxa08755 <nxa08755@NXL97262>
 ## Created: 2018-04-06
 
-function [retval] = train_network (TNet, RefSet, LR)
+function [TNet] = train_network (TNet, RefSet, LR)
 #make guess
-  for ii=1:1400
-    [guess_out,TNet] = make_guess(TNet,RefSet.in(:,ii));
+debug=1;
+  for ii=1:5
+  effect=1;
+  jj=0;
+  while(effect>(LR))
+    [guess_out,TNet] = make_guess(TNet,RefSet.in(:,ii));    
     errout = guess_out - RefSet.out(:,ii);
     errhid = TNet.wo'*errout;
     #w'=w+err*x*dy*LR
-#    errout
-#    dwo1 = LR * errout
-#    dwo2 = (TNet.out_l.*(1-TNet.out_l))
-#    dwo3 = dwo1 .* dwo2;
-#    TNet.hid_l
-#    dwo = dwo3 * TNet.hid_l'
-#    TNet.wo
     TNet.wo = TNet.wo + LR * errout .* (TNet.out_l.*(1-TNet.out_l)) * TNet.hid_l';
     TNet.wh = TNet.wh + LR * errhid .* (TNet.hid_l.*(1-TNet.hid_l)) * RefSet.in(:,ii)';
     TNet.bo = TNet.bo + LR * errout .* (TNet.out_l.*(1-TNet.out_l));
     TNet.bh = TNet.bh + LR * errhid .* (TNet.hid_l.*(1-TNet.hid_l));
-    #    TNet.wo
+    effect=sum(errout.^2);
+    if (debug)
+      figure(2)
+      scatter(jj,effect),hold on
+      drawnow
+    end
+  jj=jj+1;
   end
   
-  retval = TNet;
+  end
 endfunction

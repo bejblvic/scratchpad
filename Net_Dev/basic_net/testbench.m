@@ -1,7 +1,7 @@
 #testbench
 clear all
 num_el = 2000;
-LR = 0.01;
+LR = 0.1;
 #Training Set
 [TrSet.in,TrSet.out] = make_ref_set(num_el);
 #Testing Set
@@ -16,13 +16,14 @@ INet = make_network(NI,NH,NO);
 max_err = (NO)*num_el;
 #calculate expected random guess error
 exp_err = (NO)*(num_el/2);
-for ii=1:20
+for ii=1:200
   curr_err = test_network(INet,TestSet);
   #disp('adjusted error = ');
   #disp(curr_err/max_err);
   INet = train_network(INet,TrSet,LR);
   testno(ii)=ii;
   errtrack(ii)=curr_err/max_err;
+  figure(1)
   scatter(testno,errtrack);
   drawnow
 end
